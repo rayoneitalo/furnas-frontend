@@ -127,9 +127,9 @@ export default function PlayersPage() {
 
   const getProfileColor = (profile: string) => {
     const colors: Record<string, string> = {
-      LINHA: 'bg-primary text-primary-foreground border-primary/20', // Dark Blue from logo
-      GOLEIRO: 'bg-furnas-yellow text-furnas-yellow-foreground border-furnas-yellow/20', // Yellow from logo central star
-      RESENHA: 'bg-accent text-accent-foreground border-accent/20', // Red from logo stripes
+      LINHA: 'bg-blue-500 text-white border-blue-500/20', // Azul
+      GOLEIRO: 'bg-green-500 text-white border-green-500/20', // Verde
+      RESENHA: 'bg-purple-500 text-white border-purple-500/20', // Roxo
     }
     return colors[profile] || 'bg-muted text-muted-foreground'
   }

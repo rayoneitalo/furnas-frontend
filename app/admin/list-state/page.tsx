@@ -146,9 +146,6 @@ export default function ListStatePage() {
                     })
                     : 'N/A'}
                 </p>
-                <p className="text-sm text-muted-foreground">
-                  Data e hora da próxima abertura da lista
-                </p>
               </div>
             </CardContent>
           </Card>
@@ -187,7 +184,7 @@ export default function ListStatePage() {
 
           <Card className="md:col-span-2">
             <CardHeader>
-              <CardTitle>Regras de Negócio</CardTitle>
+              <CardTitle>Regras Atuais do Grupo Furnas</CardTitle>
               <CardDescription>
                 Informações sobre o funcionamento da lista
               </CardDescription>

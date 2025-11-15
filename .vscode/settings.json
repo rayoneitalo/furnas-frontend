@@ -1,0 +1,8 @@
+{
+    "editor.codeActionsOnSave": {
+        "source.fixAll": "explicit",
+        "source.organizeImports": "explicit",
+        "source.removeUnused.ts": "explicit",
+        "removeUnusedImports.ts": "explicit"
+    }
+}

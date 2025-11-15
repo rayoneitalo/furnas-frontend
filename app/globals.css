@@ -1,0 +1,68 @@
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    /* Furnas F.C. Color Palette */
+    /* Dark Blue (Primary) - from logo top section */
+    --background: 0 0% 100%;
+    --foreground: 220 80% 15%;
+    --card: 0 0% 100%;
+    --card-foreground: 220 80% 15%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 220 80% 15%;
+    --primary: 220 80% 25%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 0 0% 96%;
+    --secondary-foreground: 220 80% 15%;
+    --muted: 220 20% 96%;
+    --muted-foreground: 220 10% 50%;
+    /* Red (Accent) - from logo stripes */
+    --accent: 0 80% 50%;
+    --accent-foreground: 0 0% 100%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 220 30% 90%;
+    --input: 220 30% 90%;
+    --ring: 220 80% 25%;
+    /* Yellow (from logo central star) */
+    --furnas-yellow: 45 100% 50%;
+    --furnas-yellow-foreground: 220 80% 15%;
+    --radius: 0.5rem;
+  }
+
+  .dark {
+    /* Furnas F.C. Dark Mode - Dark Blue theme */
+    --background: 220 80% 8%;
+    --foreground: 0 0% 98%;
+    --card: 220 80% 10%;
+    --card-foreground: 0 0% 98%;
+    --popover: 220 80% 10%;
+    --popover-foreground: 0 0% 98%;
+    --primary: 220 70% 35%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 220 40% 20%;
+    --secondary-foreground: 0 0% 98%;
+    --muted: 220 30% 20%;
+    --muted-foreground: 220 10% 65%;
+    --accent: 0 80% 55%;
+    --accent-foreground: 0 0% 100%;
+    --destructive: 0 70% 55%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 220 40% 25%;
+    --input: 220 40% 25%;
+    --ring: 220 70% 35%;
+    /* Yellow (from logo central star) */
+    --furnas-yellow: 45 100% 55%;
+    --furnas-yellow-foreground: 220 80% 8%;
+  }
+}
+
+@layer base {
+  * {
+    border-color: hsl(var(--border));
+  }
+  body {
+    background-color: hsl(var(--background));
+    color: hsl(var(--foreground));
+  }
+}

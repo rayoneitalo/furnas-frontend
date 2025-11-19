@@ -31,7 +31,7 @@ import {
 } from '@/components/ui/select'
 import { api } from '@/lib/api'
 import type { Player, CreatePlayerDto } from '@/lib/types'
-import { Plus, Trash2 } from 'lucide-react'
+import { Plus, Trash2, ChevronDown, ChevronUp } from 'lucide-react'
 import { MAIN_LIST_CAPACITY } from '@/lib/constants'
 import { Card, CardContent } from '@/components/ui/card'
 
@@ -48,6 +48,9 @@ export default function PlayersPage() {
     profile: 'LINHA',
   })
   const [removeRg, setRemoveRg] = useState('')
+  const [mainListCollapsed, setMainListCollapsed] = useState(false)
+  const [waitlistCollapsed, setWaitlistCollapsed] = useState(false)
+  const [resenhaListCollapsed, setResenhaListCollapsed] = useState(false)
 
   const loadPlayers = async () => {
     try {
@@ -243,9 +246,23 @@ export default function PlayersPage() {
         {/* Lista Principal */}
         <div>
           <div className="mb-4 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2">
-            <h2 className="text-xl sm:text-2xl font-semibold">
+            <div className="flex items-center gap-2">
+              <Button
+                variant="ghost"
+                size="icon"
+                onClick={() => setMainListCollapsed(!mainListCollapsed)}
+                className="h-8 w-8"
+              >
+                {mainListCollapsed ? (
+                  <ChevronDown className="h-4 w-4" />
+                ) : (
+                  <ChevronUp className="h-4 w-4" />
+                )}
+              </Button>
+              <h2 className="text-xl sm:text-2xl font-semibold">
               Lista Principal ({mainPlayers.length}/{MAIN_LIST_CAPACITY})
             </h2>
+            </div>
             <Badge variant={mainPlayers.length >= MAIN_LIST_CAPACITY ? 'destructive' : 'default'}>
               {mainPlayers.length >= MAIN_LIST_CAPACITY ? 'Cheia' : 'Disponível'}
             </Badge>
@@ -254,7 +271,7 @@ export default function PlayersPage() {
             <p className="text-muted-foreground">Carregando...</p>
           ) : mainPlayers.length === 0 ? (
             <p className="text-muted-foreground">Nenhum jogador na lista principal</p>
-          ) : (
+          ) : !mainListCollapsed ? (
             <>
               {/* Mobile Cards */}
               <div className="md:hidden space-y-3">
@@ -433,12 +450,24 @@ export default function PlayersPage() {
             </Table>
               </div>
             </>
-          )}
+          ) : null}
         </div>
 
         {/* Lista de Espera */}
         <div>
-          <div className="mb-4">
+          <div className="mb-4 flex items-center gap-2">
+            <Button
+              variant="ghost"
+              size="icon"
+              onClick={() => setWaitlistCollapsed(!waitlistCollapsed)}
+              className="h-8 w-8"
+            >
+              {waitlistCollapsed ? (
+                <ChevronDown className="h-4 w-4" />
+              ) : (
+                <ChevronUp className="h-4 w-4" />
+              )}
+            </Button>
             <h2 className="text-xl sm:text-2xl font-semibold">
               Lista de Espera ({waitlistPlayers.length})
             </h2>
@@ -447,7 +476,7 @@ export default function PlayersPage() {
             <p className="text-muted-foreground">Carregando...</p>
           ) : waitlistPlayers.length === 0 ? (
             <p className="text-muted-foreground">Nenhum jogador na lista de espera</p>
-          ) : (
+          ) : !waitlistCollapsed ? (
             <>
               {/* Mobile Cards */}
               <div className="md:hidden space-y-3">
@@ -641,15 +670,29 @@ export default function PlayersPage() {
             </Table>
               </div>
             </>
-          )}
+          ) : null}
         </div>
 
         {/* Lista de Resenha */}
         <div>
           <div className="mb-4">
-            <h2 className="text-xl sm:text-2xl font-semibold">
-              Lista de Resenha ({resenhaPlayers.length})
-            </h2>
+            <div className="flex items-center gap-2">
+              <Button
+                variant="ghost"
+                size="icon"
+                onClick={() => setResenhaListCollapsed(!resenhaListCollapsed)}
+                className="h-8 w-8"
+              >
+                {resenhaListCollapsed ? (
+                  <ChevronDown className="h-4 w-4" />
+                ) : (
+                  <ChevronUp className="h-4 w-4" />
+                )}
+              </Button>
+              <h2 className="text-xl sm:text-2xl font-semibold">
+                Lista de Resenha ({resenhaPlayers.length})
+              </h2>
+            </div>
             <p className="text-sm text-muted-foreground mt-1">
               Jogadores com perfil Resenha não ocupam vagas na lista principal
             </p>
@@ -658,7 +701,7 @@ export default function PlayersPage() {
             <p className="text-muted-foreground">Carregando...</p>
           ) : resenhaPlayers.length === 0 ? (
             <p className="text-muted-foreground">Nenhum jogador na lista de resenha</p>
-          ) : (
+          ) : !resenhaListCollapsed ? (
             <>
               {/* Mobile Cards */}
               <div className="md:hidden space-y-3">
@@ -849,7 +892,7 @@ export default function PlayersPage() {
                 </Table>
               </div>
             </>
-          )}
+          ) : null}
         </div>
       </div>
     </div>

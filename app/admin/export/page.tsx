@@ -1,27 +1,49 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { api } from '@/lib/api'
-import { Download, Copy, CheckCircle2 } from 'lucide-react'
+import { exportPlayersToPDF } from '@/lib/pdf-export'
+import { Download, Copy, CheckCircle2, FileDown } from 'lucide-react'
+import type { Player } from '@/lib/types'
 
 export default function ExportPage() {
   const [markdown, setMarkdown] = useState<string | null>(null)
-  const [loading, setLoading] = useState(false)
+  const [players, setPlayers] = useState<Player[]>([])
+  const [loadingPlayers, setLoadingPlayers] = useState(true)
+  const [loadingMarkdown, setLoadingMarkdown] = useState(false)
+  const [loadingPDF, setLoadingPDF] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const [copied, setCopied] = useState(false)
 
+  useEffect(() => {
+    loadPlayers()
+  }, [])
+
+  const loadPlayers = async () => {
+    try {
+      setLoadingPlayers(true)
+      setError(null)
+      const data = await api.getPlayers()
+      setPlayers(data)
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Erro ao carregar jogadores')
+    } finally {
+      setLoadingPlayers(false)
+    }
+  }
+
   const handleExport = async () => {
     try {
-      setLoading(true)
+      setLoadingMarkdown(true)
       setError(null)
       const data = await api.exportList()
       setMarkdown(data)
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Erro ao exportar lista')
     } finally {
-      setLoading(false)
+      setLoadingMarkdown(false)
     }
   }
 
@@ -47,12 +69,24 @@ export default function ExportPage() {
     }
   }
 
+  const handleExportPDF = () => {
+    try {
+      setLoadingPDF(true)
+      setError(null)
+      exportPlayersToPDF(players)
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Erro ao exportar PDF')
+    } finally {
+      setLoadingPDF(false)
+    }
+  }
+
   return (
     <div className="container mx-auto py-10">
       <div className="mb-8">
         <h1 className="text-4xl font-bold tracking-tight mb-2">Exportar Lista</h1>
         <p className="text-muted-foreground">
-          Exporte a lista completa de jogadores em formato Markdown
+          Exporte a lista completa de jogadores em formato PDF ou Markdown
         </p>
       </div>
 
@@ -62,19 +96,47 @@ export default function ExportPage() {
         </div>
       )}
 
-      <Card>
-        <CardHeader>
-          <CardTitle>Exportação</CardTitle>
-          <CardDescription>
-            Gere um arquivo Markdown com a lista completa de jogadores,
-            ordenada por lista principal e depois lista de espera
-          </CardDescription>
-        </CardHeader>
-        <CardContent className="space-y-4">
-          <Button onClick={handleExport} disabled={loading}>
-            <Download className="mr-2 h-4 w-4" />
-            {loading ? 'Gerando...' : 'Gerar Exportação'}
-          </Button>
+      <div className="grid gap-6 md:grid-cols-2">
+        <Card>
+          <CardHeader>
+            <CardTitle>Exportar PDF</CardTitle>
+            <CardDescription>
+              Gere um arquivo PDF formatado com todas as listas de jogadores
+            </CardDescription>
+          </CardHeader>
+          <CardContent className="space-y-4">
+            <Button
+              onClick={handleExportPDF}
+              disabled={loadingPDF || loadingPlayers || players.length === 0}
+              className="w-full"
+            >
+              <FileDown className="mr-2 h-4 w-4" />
+              {loadingPDF ? 'Gerando PDF...' : 'Exportar PDF'}
+            </Button>
+            {players.length === 0 && !loadingPlayers && (
+              <p className="text-sm text-muted-foreground">
+                Nenhum jogador encontrado. Carregue os jogadores primeiro.
+              </p>
+            )}
+            {loadingPlayers && (
+              <p className="text-sm text-muted-foreground">Carregando jogadores...</p>
+            )}
+          </CardContent>
+        </Card>
+
+        <Card>
+          <CardHeader>
+            <CardTitle>Exportar Markdown</CardTitle>
+            <CardDescription>
+              Gere um arquivo Markdown com a lista completa de jogadores,
+              ordenada por lista principal e depois lista de espera
+            </CardDescription>
+          </CardHeader>
+          <CardContent className="space-y-4">
+            <Button onClick={handleExport} disabled={loadingMarkdown} className="w-full">
+              <Download className="mr-2 h-4 w-4" />
+              {loadingMarkdown ? 'Gerando...' : 'Gerar Exportação'}
+            </Button>
 
           {markdown && (
             <div className="space-y-4">
@@ -105,8 +167,9 @@ export default function ExportPage() {
               </div>
             </div>
           )}
-        </CardContent>
-      </Card>
+          </CardContent>
+        </Card>
+      </div>
     </div>
   )
 }

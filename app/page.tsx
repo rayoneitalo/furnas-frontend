@@ -65,10 +65,10 @@ export default function Home() {
     return (
       <div className="w-full min-h-[calc(100vh-4rem)] sm:min-h-0 flex items-center justify-center py-4 px-4 sm:py-10">
         <div className="container mx-auto max-w-2xl w-full">
-          <Card className="border-green-200 bg-green-50 dark:bg-green-950 w-full">
+          <Card className="border-green-200 bg-green-50 w-full">
             <CardHeader className="text-center px-4 sm:px-6 pt-6">
-              <div className="mx-auto mb-4 flex h-12 w-12 sm:h-16 sm:w-16 items-center justify-center rounded-full bg-green-100 dark:bg-green-900">
-                <CheckCircle2 className="h-6 w-6 sm:h-8 sm:w-8 text-green-600 dark:text-green-400" />
+              <div className="mx-auto mb-4 flex h-12 w-12 sm:h-16 sm:w-16 items-center justify-center rounded-full bg-green-100">
+                <CheckCircle2 className="h-6 w-6 sm:h-8 sm:w-8 text-green-600" />
               </div>
               <CardTitle className="text-lg sm:text-xl md:text-2xl">
                 Inscrição realizada com sucesso!

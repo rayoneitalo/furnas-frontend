@@ -20,14 +20,14 @@ export function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 shadow-sm">
+    <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-backdrop-filter:bg-background/60 shadow-sm">
       <div className="container flex h-16 items-center px-4">
         <div className="mr-4 sm:mr-8 flex">
           <Link href="/" className="flex items-center space-x-2 group">
-            <div className="flex h-7 w-7 sm:h-8 sm:w-8 items-center justify-center rounded-lg bg-gradient-to-br from-primary to-primary/80 text-primary-foreground shadow-md transition-transform group-hover:scale-105">
-              <span className="font-bold text-xs sm:text-sm">F</span>
+            <div className="flex h-7 w-7 sm:h-8 sm:w-8 items-center justify-center rounded-lg bg-linear-to-br from-primary to-primary/80 text-primary-foreground">
+              <span className="font-bold text-xs sm:text-sm">Furnas</span>
             </div>
-            <span className="font-bold text-lg sm:text-xl bg-gradient-to-r from-foreground to-foreground/70 bg-clip-text text-transparent">
+            <span className="font-bold text-lg sm:text-xl bg-linear-to-r from-foreground to-foreground/70 bg-clip-text text-transparent">
               Furnas
             </span>
           </Link>

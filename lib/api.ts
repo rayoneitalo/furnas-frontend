@@ -8,6 +8,7 @@ import type {
   Player,
   RemovePlayerDto,
 } from './types'
+import { getAuthHeaders } from './auth'
 
 // Para Server Components (Next.js SSR), use a URL interna do Docker ou localhost
 // Para Client Components, use a URL pública
@@ -58,7 +59,7 @@ export async function fetchAPI<T>(
 export const api = {
   // List State
   getListState: () => fetchAPI<ListState | null>('/list-state'),
-  resetList: () => fetchAPI<ListState>('/list-state/reset', { method: 'POST' }),
+  resetList: () => fetchAPI<ListState>('/list-state/reset', { method: 'POST', headers: getAuthHeaders() }),
 
   // Players
   getPlayers: () => fetchAPI<Player[]>('/players'),
@@ -71,6 +72,7 @@ export const api = {
     fetchAPI<{ message: string }>(`/players/${id}`, {
       method: 'DELETE',
       body: JSON.stringify(data),
+      headers: getAuthHeaders(),
     }),
   exportList: () => fetchAPI<ExportResponse>('/players/export'),
 
@@ -79,6 +81,7 @@ export const api = {
     fetchAPI<Invite>('/invites/create', {
       method: 'POST',
       body: JSON.stringify(data),
+      headers: getAuthHeaders(),
     }),
   acceptInvite: (data: AcceptInviteDto) =>
     fetchAPI<Player>('/invites/accept', {

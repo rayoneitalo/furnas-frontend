@@ -6,9 +6,7 @@ export function Footer() {
           {/* Furnas - Esquerda */}
           <div className="space-y-2 flex-1">
             <div className="flex items-center space-x-2">
-              {/* <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-linear-to-br from-primary to-primary/80 text-primary-foreground"> */}
-                {/* <span className="font-bold text-sm">F</span> */}
-              {/* </div> */}
+              <img src="/logo.svg" alt="Furnas" className="h-8 w-8 drop-shadow-md" />
               <span className="font-bold text-xl">Furnas</span>
             </div>
             <p className="text-sm text-muted-foreground">

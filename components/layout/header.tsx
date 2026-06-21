@@ -24,9 +24,11 @@ export function Header() {
       <div className="container flex h-16 items-center px-4">
         <div className="mr-4 sm:mr-8 flex">
           <Link href="/" className="flex items-center space-x-2 group">
-            <div className="flex h-7 w-7 sm:h-8 sm:w-8 items-center justify-center rounded-lg bg-linear-to-br from-primary to-primary/80 text-primary-foreground">
-              <span className="font-bold text-xs sm:text-sm">Furnas</span>
-            </div>
+            <img
+              src="/logo.svg"
+              alt="Furnas"
+              className="h-8 w-8 sm:h-9 sm:w-9 transition-transform group-hover:scale-105 drop-shadow-md"
+            />
             <span className="font-bold text-lg sm:text-xl bg-linear-to-r from-foreground to-foreground/70 bg-clip-text text-transparent">
               Furnas
             </span>
@@ -79,7 +81,7 @@ export function Header() {
           )}
           <Button variant="outline" size="sm" asChild className="gap-2 hidden sm:flex">
             <a
-              href="http://localhost:3000/docs"
+              href={`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4004'}/docs`}
               target="_blank"
               rel="noopener noreferrer"
           >
@@ -151,7 +153,7 @@ export function Header() {
               </Link>
             )}
             <a
-              href="http://localhost:3000/docs"
+              href={`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4004'}/docs`}
               target="_blank"
               rel="noopener noreferrer"
               onClick={() => setMobileMenuOpen(false)}

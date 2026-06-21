@@ -1,0 +1,63 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
+  <defs>
+    <radialGradient id="bg" cx="36%" cy="30%" r="70%">
+      <stop offset="0%" stop-color="#4ade80"/>
+      <stop offset="100%" stop-color="#14532d"/>
+    </radialGradient>
+    <radialGradient id="ballSheen" cx="38%" cy="30%" r="55%">
+      <stop offset="0%" stop-color="rgba(255,255,255,0.55)"/>
+      <stop offset="100%" stop-color="rgba(255,255,255,0)"/>
+    </radialGradient>
+    <clipPath id="ballClip">
+      <circle cx="100" cy="100" r="63"/>
+    </clipPath>
+    <filter id="ballShadow" x="-15%" y="-10%" width="130%" height="130%">
+      <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#000" flood-opacity="0.28"/>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="200" height="200" rx="44" fill="url(#bg)"/>
+
+  <!-- Pitch ring decoration -->
+  <circle cx="100" cy="100" r="84" fill="none" stroke="rgba(255,255,255,0.07)" stroke-width="22"/>
+
+  <!-- Ball shadow -->
+  <ellipse cx="102" cy="106" rx="63" ry="58" fill="rgba(0,0,0,0.18)"/>
+
+  <!-- Soccer ball -->
+  <g filter="url(#ballShadow)">
+    <g clip-path="url(#ballClip)">
+      <!-- White base -->
+      <circle cx="100" cy="100" r="63" fill="white"/>
+
+      <!-- Pentagon center — regular pentagon, inscribed r=27, centered (100,100) starting from top -->
+      <polygon points="100,73 125.7,91.7 116.3,121.7 83.7,121.7 74.3,91.7" fill="#111827"/>
+
+      <!-- Seam lines from each pentagon vertex to ball edge -->
+      <!-- Top: (100,73) → (100,37) -->
+      <line x1="100" y1="73" x2="100" y2="37" stroke="#111827" stroke-width="3.5" stroke-linecap="round"/>
+      <!-- Top-right: (125.7,91.7) → (159,80) -->
+      <line x1="125.7" y1="91.7" x2="159" y2="80" stroke="#111827" stroke-width="3.5" stroke-linecap="round"/>
+      <!-- Bottom-right: (116.3,121.7) → (137,150) -->
+      <line x1="116.3" y1="121.7" x2="137" y2="150" stroke="#111827" stroke-width="3.5" stroke-linecap="round"/>
+      <!-- Bottom-left: (83.7,121.7) → (63,150) -->
+      <line x1="83.7" y1="121.7" x2="63" y2="150" stroke="#111827" stroke-width="3.5" stroke-linecap="round"/>
+      <!-- Top-left: (74.3,91.7) → (41,80) -->
+      <line x1="74.3" y1="91.7" x2="41" y2="80" stroke="#111827" stroke-width="3.5" stroke-linecap="round"/>
+
+      <!-- Edge patches (pentagonal patches where seams meet the edge) -->
+      <circle cx="100" cy="37"  r="11" fill="#111827"/>
+      <circle cx="159" cy="80"  r="11" fill="#111827"/>
+      <circle cx="137" cy="150" r="11" fill="#111827"/>
+      <circle cx="63"  cy="150" r="11" fill="#111827"/>
+      <circle cx="41"  cy="80"  r="11" fill="#111827"/>
+
+      <!-- Sheen overlay -->
+      <circle cx="100" cy="100" r="63" fill="url(#ballSheen)"/>
+    </g>
+  </g>
+
+  <!-- Outer ring highlight -->
+  <rect width="200" height="200" rx="44" fill="none" stroke="rgba(255,255,255,0.18)" stroke-width="2"/>
+</svg>

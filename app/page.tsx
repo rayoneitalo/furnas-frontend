@@ -65,26 +65,27 @@ export default function Home() {
     return (
       <div className="w-full min-h-[calc(100vh-4rem)] sm:min-h-0 flex items-center justify-center py-4 px-4 sm:py-10">
         <div className="container mx-auto max-w-2xl w-full">
-          <Card className="border-green-200 bg-green-50 w-full">
-            <CardHeader className="text-center px-4 sm:px-6 pt-6">
-              <div className="mx-auto mb-4 flex h-12 w-12 sm:h-16 sm:w-16 items-center justify-center rounded-full bg-green-100">
-                <CheckCircle2 className="h-6 w-6 sm:h-8 sm:w-8 text-green-600" />
+          <Card className="w-full border-green-500/40 shadow-md">
+            <CardHeader className="text-center px-4 sm:px-6 pt-8">
+              <div className="mx-auto mb-5 flex h-14 w-14 sm:h-18 sm:w-18 items-center justify-center rounded-full bg-green-500/15 ring-4 ring-green-500/20">
+                <CheckCircle2 className="h-7 w-7 sm:h-9 sm:w-9 text-green-500" />
               </div>
-              <CardTitle className="text-lg sm:text-xl md:text-2xl">
+              <CardTitle className="text-lg sm:text-xl md:text-2xl text-foreground">
                 Inscrição realizada com sucesso!
               </CardTitle>
-              <CardDescription className="text-xs sm:text-sm md:text-base mt-2">
+              <CardDescription className="text-xs sm:text-sm md:text-base mt-2 text-muted-foreground">
                 Você foi adicionado à lista. Verifique sua posição na lista principal ou lista de
                 espera.
               </CardDescription>
             </CardHeader>
-            <CardContent className="text-center px-4 sm:px-6 pb-6">
+            <CardContent className="text-center px-4 sm:px-6 pb-8">
               <Button
+                variant="outline"
                 onClick={() => {
                   setSuccess(false)
                   setError(null)
                 }}
-                className="w-full sm:w-auto"
+                className="w-full sm:w-auto border-green-500/40 hover:border-green-500 hover:text-green-600"
               >
                 Fazer nova inscrição
               </Button>

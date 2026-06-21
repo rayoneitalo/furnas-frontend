@@ -47,6 +47,18 @@ export function Header() {
             <Home className="h-4 w-4" />
             <span>Inscrição</span>
           </Link>
+          <Link
+            href="/convites"
+            className={cn(
+              'flex items-center gap-2 px-4 py-2 rounded-md text-sm font-medium transition-all',
+              pathname === '/convites'
+                ? 'bg-primary/10 text-primary shadow-sm'
+                : 'text-muted-foreground hover:text-foreground hover:bg-accent/50'
+            )}
+          >
+            <UserPlus className="h-4 w-4" />
+            <span>Convites</span>
+          </Link>
           {pathname?.startsWith('/admin') && (
             <>
               {navigation
@@ -115,6 +127,19 @@ export function Header() {
             >
               <Home className="h-4 w-4" />
               <span>Inscrição</span>
+            </Link>
+            <Link
+              href="/convites"
+              onClick={() => setMobileMenuOpen(false)}
+              className={cn(
+                'flex items-center gap-2 px-4 py-2 rounded-md text-sm font-medium transition-all',
+                pathname === '/convites'
+                  ? 'bg-primary/10 text-primary'
+                  : 'text-muted-foreground hover:text-foreground hover:bg-accent/50'
+              )}
+            >
+              <UserPlus className="h-4 w-4" />
+              <span>Convites</span>
             </Link>
             {pathname?.startsWith('/admin') && (
               <>

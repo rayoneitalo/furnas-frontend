@@ -77,6 +77,7 @@ export const api = {
   exportList: () => fetchAPI<ExportResponse>('/players/export'),
 
   // Invites
+  getInviteWindow: () => fetchAPI<{ open: boolean; windowEnd: string | null }>('/invites/window'),
   createInvite: (data: CreateInviteDto) =>
     fetchAPI<Invite>('/invites/create', {
       method: 'POST',

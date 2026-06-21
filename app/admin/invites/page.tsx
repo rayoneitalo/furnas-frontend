@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import {
@@ -26,8 +26,15 @@ import type { CreateInviteDto, AcceptInviteDto } from '@/lib/types'
 import { Plus, Copy, CheckCircle2, UserPlus, XCircle } from 'lucide-react'
 
 export default function InvitesPage() {
+  const [inviteWindowOpen, setInviteWindowOpen] = useState<boolean | null>(null)
   const [error, setError] = useState<string | null>(null)
   const [success, setSuccess] = useState<string | null>(null)
+
+  useEffect(() => {
+    api.getInviteWindow()
+      .then(({ open }) => setInviteWindowOpen(open))
+      .catch(() => setInviteWindowOpen(false))
+  }, [])
   const [createInviteDialogOpen, setCreateInviteDialogOpen] = useState(false)
   const [createInviteError, setCreateInviteError] = useState<string | null>(null)
   const [acceptInviteDialogOpen, setAcceptInviteDialogOpen] = useState(false)
@@ -126,7 +133,12 @@ export default function InvitesPage() {
       <div className="mb-6 sm:mb-8">
         <h1 className="text-3xl sm:text-4xl font-bold tracking-tight mb-2">Convites</h1>
         <p className="text-sm sm:text-base text-muted-foreground">
-          Gerencie convites para jogadores. Janela de convites: Terça-feira 00:00 até Quinta-feira 14:00.
+          Gerencie convites para jogadores. Janela de convites: Terça-feira 00:00 até Quinta-feira 14:00.{' '}
+          {inviteWindowOpen !== null && (
+            <span className={inviteWindowOpen ? 'text-green-600 font-medium' : 'text-muted-foreground'}>
+              ({inviteWindowOpen ? 'Aberta agora' : 'Fechada'})
+            </span>
+          )}
         </p>
       </div>
 
@@ -169,7 +181,7 @@ export default function InvitesPage() {
               }}
                     >
                       <DialogTrigger asChild>
-                <Button className="w-full">
+                <Button className="w-full" disabled={!inviteWindowOpen}>
                           <Plus className="mr-2 h-4 w-4" />
                   Criar Novo Convite
                         </Button>
@@ -289,7 +301,7 @@ export default function InvitesPage() {
           <CardContent>
             <Dialog open={acceptInviteDialogOpen} onOpenChange={setAcceptInviteDialogOpen}>
               <DialogTrigger asChild>
-                <Button className="w-full">
+                <Button className="w-full" disabled={!inviteWindowOpen}>
                   <CheckCircle2 className="mr-2 h-4 w-4" />
                   Aceitar Convite
                 </Button>

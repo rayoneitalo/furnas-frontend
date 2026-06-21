@@ -21,7 +21,6 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select'
-import { Badge } from '@/components/ui/badge'
 import { api } from '@/lib/api'
 import type { CreateInviteDto, AcceptInviteDto } from '@/lib/types'
 import { Plus, Copy, CheckCircle2, UserPlus, XCircle } from 'lucide-react'
@@ -112,17 +111,6 @@ export default function InvitesPage() {
     setTimeout(() => setCopiedToken(null), 2000)
   }
 
-  const isWithinInviteWindow = () => {
-    const now = new Date()
-    const day = now.getDay()
-    const hour = now.getHours()
-    // Terça-feira (2) 00:00 até Quinta-feira (4) 14:00
-    if (day === 2 && hour >= 0) return true
-    if (day === 3) return true
-    if (day === 4 && hour < 14) return true
-    return false
-  }
-
   const formatExpirationDate = (date: Date) => {
     return new Intl.DateTimeFormat('pt-BR', {
       day: '2-digit',
@@ -138,15 +126,7 @@ export default function InvitesPage() {
       <div className="mb-6 sm:mb-8">
         <h1 className="text-3xl sm:text-4xl font-bold tracking-tight mb-2">Convites</h1>
         <p className="text-sm sm:text-base text-muted-foreground">
-          Gerencie convites para jogadores. A janela de convites está{' '}
-          {isWithinInviteWindow() ? (
-            <Badge variant="default" className="ml-1">Aberta</Badge>
-          ) : (
-            <Badge variant="secondary" className="ml-1">Fechada</Badge>
-          )}
-        </p>
-        <p className="text-xs sm:text-sm text-muted-foreground mt-2">
-          Janela de convites: Terça-feira 00:00 até Quinta-feira 14:00
+          Gerencie convites para jogadores. Janela de convites: Terça-feira 00:00 até Quinta-feira 14:00.
         </p>
       </div>
 
@@ -189,7 +169,7 @@ export default function InvitesPage() {
               }}
                     >
                       <DialogTrigger asChild>
-                <Button className="w-full" disabled={!isWithinInviteWindow()}>
+                <Button className="w-full">
                           <Plus className="mr-2 h-4 w-4" />
                   Criar Novo Convite
                         </Button>
@@ -309,7 +289,7 @@ export default function InvitesPage() {
           <CardContent>
             <Dialog open={acceptInviteDialogOpen} onOpenChange={setAcceptInviteDialogOpen}>
               <DialogTrigger asChild>
-                <Button className="w-full" disabled={!isWithinInviteWindow()}>
+                <Button className="w-full">
                   <CheckCircle2 className="mr-2 h-4 w-4" />
                   Aceitar Convite
                 </Button>
@@ -414,7 +394,6 @@ export default function InvitesPage() {
                   <Button
                     onClick={handleAcceptInvite}
                     disabled={
-                      !isWithinInviteWindow() ||
                       !acceptFormData.name.trim() ||
                       !acceptFormData.rg.trim() ||
                       !acceptFormData.phone.trim() ||

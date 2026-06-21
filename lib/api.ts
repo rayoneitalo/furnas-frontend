@@ -45,6 +45,12 @@ export async function fetchAPI<T>(
     )
   }
 
+  const contentLength = response.headers.get('content-length')
+  const contentType = response.headers.get('content-type') ?? ''
+  if (contentLength === '0' || !contentType.includes('application/json')) {
+    return null as T
+  }
+
   return response.json()
   } catch (error) {
     if (error instanceof TypeError && error.message.includes('fetch')) {

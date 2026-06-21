@@ -82,7 +82,6 @@ export const api = {
     fetchAPI<Invite>('/invites/create', {
       method: 'POST',
       body: JSON.stringify(data),
-      headers: getAuthHeaders(),
     }),
   acceptInvite: (data: AcceptInviteDto) =>
     fetchAPI<Player>('/invites/accept', {
